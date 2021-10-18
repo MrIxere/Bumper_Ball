@@ -29,7 +29,7 @@ namespace core
                 if(entityManager_.HasComponent(entity, static_cast<Component>(ComponentType::SCALE)))
                 {
                     const auto scale = transformManager_.GetScale(entity);
-                    components_[entity].setScale(scale.x *2, scale.y *2);
+                    components_[entity].setScale(scale.x *4, scale.y *4);
                 }
                 if (entityManager_.HasComponent(entity, static_cast<Component>(ComponentType::ROTATION)))
                 {
