@@ -7,8 +7,7 @@ namespace game
 {
     void Background::Init()
     {
-        
-
+        //ring.setPosition(0, 0);
         /*vertexArray_ = sf::VertexArray(sf::Points, starCount);
 
         for (std::size_t i = 0; i < starCount; i++)
@@ -23,6 +22,10 @@ namespace game
 
     void Background::Draw(sf::RenderTarget& window)
     {
+    	sf::CircleShape ring(250);
+        ring.setPosition(70, 100);
+        ring.setFillColor(sf::Color::White);
+        window.draw(ring);
         window.draw(vertexArray_);
     }
 }
