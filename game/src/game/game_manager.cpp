@@ -154,8 +154,8 @@ namespace game
 
     void ClientGameManager::Draw(sf::RenderTarget& target)
     {
-        UpdateCameraView();
-        target.setView(cameraView_);
+        //UpdateCameraView();
+        target.setView(originalView_);
 
         starBackground_.Draw(target);
         spriteManager_.Draw(target);
@@ -377,7 +377,7 @@ namespace game
         state_ = state_ | FINISHED;
     }
 
-    void ClientGameManager::UpdateCameraView()
+   /* void ClientGameManager::UpdateCameraView()
     {
         if(!(state_ | STARTED))
         {
@@ -419,5 +419,5 @@ namespace game
         }
         cameraView_.zoom(currentZoom);
 
-    }
+    }*/
 }

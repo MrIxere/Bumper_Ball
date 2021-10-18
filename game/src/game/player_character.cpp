@@ -7,17 +7,14 @@ namespace game
         ComponentManager(entityManager),
         physicsManager_(physicsManager),
         gameManager_(gameManager)
-
-    {
-
-    }
+    {}
 
     void PlayerCharacterManager::FixedUpdate(sf::Time dt)
     {
         for (core::Entity playerEntity = 0; playerEntity < entityManager_.GetEntitiesSize(); playerEntity++)
         {
             if (!entityManager_.HasComponent(playerEntity,
-                                                   static_cast<core::EntityMask>(ComponentType::PLAYER_CHARACTER)))
+            static_cast<core::EntityMask>(ComponentType::PLAYER_CHARACTER)))
                 continue;
             auto playerBody = physicsManager_.GetBody(playerEntity);
             auto playerCharacter = GetComponent(playerEntity);
@@ -34,7 +31,7 @@ namespace game
 
             auto dir = core::Vec2f::up();
 
-            const auto acceleration = ((down ? -1.0f : 0.0f) + (up ? 1.0f : 0.0f) + (right ? -1.0f : 0.0f) + (left ? 1.0f : 0.0f)) * dir;
+            const auto acceleration = ((down ? -1.0f : 0.0f) + (up ? 1.0f : 0.0f) + (right ? 0.0f : 1.0f) + (left ? 0.0f : -1.0f)) * dir;
 
 
             playerBody.velocity += acceleration * dt.asSeconds();

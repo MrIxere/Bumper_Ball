@@ -64,8 +64,7 @@ namespace game
             UP = 1u << 0u,
             DOWN = 1u << 1u,
             LEFT = 1u << 2u,
-            RIGHT = 1u << 3u,
-            SHOOT = 1u << 4u,
+            RIGHT = 1u << 3u
         };
     }
 }
