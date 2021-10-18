@@ -32,8 +32,8 @@ namespace game
             auto dir = core::Vec2f::up();
             auto dir_r = core::Vec2f::right();
 
-            const auto acceleration = ((down ? -1.0f : 0.0f) + (up ? 1.0f : 0.0f)/* + (right ? 1.0f : 0.0f) + (left ? -1.0f : 0.0f)*/) * dir;
-            const auto acceleration_r = ((right ? 0.0f : -1.0f) + (left ? 0.0f : 1.0f)) * dir_r;
+            const auto acceleration = ((down ? -0.05f : 0.0f) + (up ? 0.05f : 0.0f)) * dir;
+            const auto acceleration_r = ((right ? 0.0f : -2.5f) + (left ? 0.0f : 2.5f)) * dir_r;
 
 
             playerBody.velocity += acceleration + acceleration_r * dt.asSeconds();
