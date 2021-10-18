@@ -84,10 +84,7 @@ namespace game
     void ClientGameManager::Init()
     {
         //load textures
-        if (!bulletTexture_.loadFromFile("data/sprites/bullet.png"))
-        {
-            core::LogError("Could not load bullet sprite");
-        }
+        
         if (!shipTexture_.loadFromFile("data/sprites/ship.png"))
         {
             core::LogError("Could not load ship sprite");
@@ -98,7 +95,7 @@ namespace game
             core::LogError("Could not load font");
         }
         textRenderer_.setFont(font_);
-        starBackground_.Init();
+        background_.Init();
     }
 
     void ClientGameManager::Update(sf::Time dt)
@@ -157,7 +154,7 @@ namespace game
         //UpdateCameraView();
         target.setView(originalView_);
 
-        starBackground_.Draw(target);
+        background_.Draw(target);
         spriteManager_.Draw(target);
 
         // Draw texts on screen

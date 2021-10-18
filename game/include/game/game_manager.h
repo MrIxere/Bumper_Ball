@@ -8,7 +8,7 @@
 
 #include "game_globals.h"
 #include "rollback_manager.h"
-#include "star_background.h"
+#include "background.h"
 #include "engine/entity.h"
 #include "graphics/graphics.h"
 #include "graphics/sprite.h"
@@ -89,13 +89,13 @@ namespace game
         sf::View cameraView_;
         PlayerNumber clientPlayer_ = INVALID_PLAYER;
         core::SpriteManager spriteManager_;
-        StarBackground starBackground_;
+        Background background_;
         float fixedTimer_ = 0.0f;
         unsigned long long startingTime_ = 0;
         std::uint32_t state_ = 0;
 
         sf::Texture shipTexture_;
-        sf::Texture bulletTexture_;
+        //sf::Texture bulletTexture_;
         sf::Font font_;
 
         sf::Text textRenderer_;
