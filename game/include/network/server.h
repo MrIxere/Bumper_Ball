@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 
+#include "game/game_manager.h"
 #include "packet_type.h"
 #include "engine/system.h"
 #include "game/game_globals.h"
