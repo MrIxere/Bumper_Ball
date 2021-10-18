@@ -25,16 +25,18 @@ namespace game
             const bool up = input & PlayerInputEnum::PlayerInput::UP;
             const bool down = input & PlayerInputEnum::PlayerInput::DOWN;
 
-            const auto angularVelocity = ((left ? -1.0f : 0.0f) + (right ? 1.0f : 0.0f)) * playerAngularSpeed;
+            //const auto angularVelocity = ((left ? -1.0f : 0.0f) + (right ? 1.0f : 0.0f)) * playerAngularSpeed;
 
-            playerBody.angularVelocity = angularVelocity;
+            //playerBody.angularVelocity = angularVelocity;
 
             auto dir = core::Vec2f::up();
+            auto dir_r = core::Vec2f::right();
 
-            const auto acceleration = ((down ? -1.0f : 0.0f) + (up ? 1.0f : 0.0f) + (right ? 0.0f : 1.0f) + (left ? 0.0f : -1.0f)) * dir;
+            const auto acceleration = ((down ? -1.0f : 0.0f) + (up ? 1.0f : 0.0f)/* + (right ? 1.0f : 0.0f) + (left ? -1.0f : 0.0f)*/) * dir;
+            const auto acceleration_r = ((right ? 0.0f : -1.0f) + (left ? 0.0f : 1.0f)) * dir_r;
 
 
-            playerBody.velocity += acceleration * dt.asSeconds();
+            playerBody.velocity += acceleration + acceleration_r * dt.asSeconds();
 
             physicsManager_.SetBody(playerEntity, playerBody);
 
