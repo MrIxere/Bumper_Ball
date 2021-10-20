@@ -43,7 +43,7 @@ namespace game
     public:
         using ComponentManager::ComponentManager;
     };
-    class BoxManager : public core::ComponentManager<Box, static_cast<core::EntityMask>(core::ComponentType::BOX_COLLIDER2D)>
+    class BoxManager : public core::ComponentManager<Box, static_cast<core::EntityMask>(core::ComponentType::CIRCLE_COLLIDER2D)>
     {
     public:
         using ComponentManager::ComponentManager;

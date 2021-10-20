@@ -32,7 +32,7 @@ namespace game
         {
             if (!entityManager_.HasComponent(entity,
                                                    static_cast<core::EntityMask>(core::ComponentType::BODY2D) |
-                                                   static_cast<core::EntityMask>(core::ComponentType::BOX_COLLIDER2D)) ||
+                                                   static_cast<core::EntityMask>(core::ComponentType::CIRCLE_COLLIDER2D)) ||
                 entityManager_.HasComponent(entity, static_cast<core::EntityMask>(ComponentType::DESTROYED)))
                 continue;
             for (core::Entity otherEntity = entity; otherEntity < entityManager_.GetEntitiesSize(); otherEntity++)
@@ -40,7 +40,7 @@ namespace game
                 if (entity == otherEntity)
                     continue;
                 if (!entityManager_.HasComponent(otherEntity,
-                                                 static_cast<core::EntityMask>(core::ComponentType::BODY2D) | static_cast<core::EntityMask>(core::ComponentType::BOX_COLLIDER2D)) ||
+                                                 static_cast<core::EntityMask>(core::ComponentType::BODY2D) | static_cast<core::EntityMask>(core::ComponentType::CIRCLE_COLLIDER2D)) ||
                     entityManager_.HasComponent(entity, static_cast<core::EntityMask>(ComponentType::DESTROYED)))
                     continue;
                 const Body& body1 = bodyManager_.GetComponent(entity);

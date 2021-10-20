@@ -22,8 +22,12 @@ namespace game
 
     void Background::Draw(sf::RenderTarget& window)
     {
-    	sf::CircleShape ring(250);
-        ring.setPosition(70, 100);
+    	sf::CircleShape ring;
+        //ring.setRadius(250);
+    	ring.setRadius(250);
+        //ring.setPosition(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
+        //ring.setPosition(sf::Vector2f{ window.getSize() / 4u});
+    	ring.setPosition({window.getSize().x, window.getSize().y});
         ring.setFillColor(sf::Color::White);
         window.draw(ring);
         window.draw(vertexArray_);

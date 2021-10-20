@@ -16,7 +16,7 @@ namespace core
         TRANSFORM = POSITION | SCALE | ROTATION,
         SPRITE = 1u << 4u,
         BODY2D = 1u << 5u,
-        BOX_COLLIDER2D = 1u << 6u,
+        CIRCLE_COLLIDER2D = 1u << 6u,
         OTHER_TYPE = 1u << 7u
     };
 
