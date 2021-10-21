@@ -25,9 +25,10 @@ namespace game
     	sf::CircleShape ring;
         //ring.setRadius(250);
     	ring.setRadius(250);
+        ring.setOrigin(ring.getRadius(), ring.getRadius());
         //ring.setPosition(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
         //ring.setPosition(sf::Vector2f{ window.getSize() / 4u});
-    	ring.setPosition({window.getSize().x, window.getSize().y});
+    	ring.setPosition(window.getSize().x/2, window.getSize().y/2);
         ring.setFillColor(sf::Color::White);
         window.draw(ring);
         window.draw(vertexArray_);
