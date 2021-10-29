@@ -45,7 +45,7 @@ class GameManager;
         [[nodiscard]] const PlayerCharacterManager& GetPlayerCharacterManager() const { return currentPlayerManager_; }
         void SpawnPlayer(PlayerNumber playerNumber, core::Entity entity, core::Vec2f position, core::degree_t rotation);
 
-        void ManageOutOfBounds(core::Entity entity, core::Vec2f position);
+        void ManageOutOfBounds();
 
     private:
         PlayerInput GetInputAtFrame(PlayerNumber playerNumber, Frame frame);

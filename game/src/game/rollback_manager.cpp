@@ -63,6 +63,7 @@ namespace game
             //Simulate one frame of the game
             currentPlayerManager_.FixedUpdate(sf::seconds(GameManager::FixedPeriod));
             currentPhysicsManager_.FixedUpdate(sf::seconds(GameManager::FixedPeriod));
+            ManageOutOfBounds();
         }
         //Copy the physics states to the transforms
         for (core::Entity entity = 0; entity < entityManager_.GetEntitiesSize(); entity++)
@@ -170,6 +171,7 @@ namespace game
             //We simulate one frame
             currentPlayerManager_.FixedUpdate(sf::seconds(GameManager::FixedPeriod));
             currentPhysicsManager_.FixedUpdate(sf::seconds(GameManager::FixedPeriod));
+            ManageOutOfBounds();
         }
         //Definitely remove DESTROY entities
         for (core::Entity entity = 0; entity < entityManager_.GetEntitiesSize(); entity++)
@@ -274,20 +276,25 @@ namespace game
         return inputs_[playerNumber][currentFrame_ - frame];
     }
 
-    void RollbackManager::ManageOutOfBounds(core::Entity entity, core::Vec2f position)
+    void RollbackManager::ManageOutOfBounds()
     {
         for (core::Entity entity = 0; entity < entityManager_.GetEntitiesSize(); entity++)
         {
             if (entityManager_.HasComponent(entity, static_cast<core::EntityMask>(ComponentType::PLAYER_CHARACTER)))
             {
-                auto playerCharacter = currentPlayerManager_.GetComponent(entity);
-                if (playerCharacter.invincibilityTime <= 0.0f)
-                {
-                    core::LogDebug(fmt::format("Player {} is outside the ring", playerCharacter.playerNumber));
-                    playerCharacter.health--;
-                    playerCharacter.invincibilityTime = playerInvincibilityPeriod;
-                }
-                currentPlayerManager_.SetComponent(entity, playerCharacter);
+                const auto& playerBody = currentPhysicsManager_.GetBody(entity);
+	            if ((playerBody.position - ringPosition).GetMagnitude() > ringRadius/core::pixelPerMeter)
+	            {
+                    auto playerCharacter = currentPlayerManager_.GetComponent(entity);
+                    if (playerCharacter.invincibilityTime <= 0.0f)
+                    {
+                        core::LogDebug(fmt::format("Player {} is outside the ring", playerCharacter.playerNumber));
+                        playerCharacter.health--;
+                        playerCharacter.invincibilityTime = playerInvincibilityPeriod;
+                    }
+                    currentPlayerManager_.SetComponent(entity, playerCharacter);
+	            }
+                
             }
         }
 

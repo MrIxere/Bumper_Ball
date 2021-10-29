@@ -65,6 +65,12 @@ namespace game
             if (!entityManager_.HasComponent(entity, static_cast<core::EntityMask>(ComponentType::PLAYER_CHARACTER)))
                 continue;
             const auto& player = playerManager.GetComponent(entity);
+
+            if (player.health > 0)
+            {
+                alivePlayer++;
+                winner = player.playerNumber;
+            }
         }
 
         return alivePlayer == 1 ? winner : INVALID_PLAYER;
@@ -183,7 +189,7 @@ namespace game
             if (winner_ == GetPlayerNumber())
             {
                 const std::string winnerText = fmt::format("You won!");
-                textRenderer_.setFillColor(sf::Color::White);
+                textRenderer_.setFillColor(sf::Color::Black);
                 textRenderer_.setString(winnerText);
                 textRenderer_.setCharacterSize(32);
                 const auto textBounds = textRenderer_.getLocalBounds();
@@ -194,7 +200,7 @@ namespace game
             else if (winner_ != INVALID_PLAYER)
             {
                 const std::string winnerText = fmt::format("P{} won!", winner_ + 1);
-                textRenderer_.setFillColor(sf::Color::White);
+                textRenderer_.setFillColor(sf::Color::Black);
                 textRenderer_.setString(winnerText);
                 textRenderer_.setCharacterSize(32);
                 const auto textBounds = textRenderer_.getLocalBounds();
