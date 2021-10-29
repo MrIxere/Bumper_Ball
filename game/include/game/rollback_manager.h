@@ -45,6 +45,8 @@ class GameManager;
         [[nodiscard]] const PlayerCharacterManager& GetPlayerCharacterManager() const { return currentPlayerManager_; }
         void SpawnPlayer(PlayerNumber playerNumber, core::Entity entity, core::Vec2f position, core::degree_t rotation);
 
+        void ManageOutOfBounds(core::Entity entity, core::Vec2f position);
+
     private:
         PlayerInput GetInputAtFrame(PlayerNumber playerNumber, Frame frame);
         GameManager& gameManager_;
@@ -60,6 +62,7 @@ class GameManager;
          */
         PhysicsManager lastValidatePhysicsManager_;
         PlayerCharacterManager lastValidatePlayerManager_;
+        //Ring& ring_{};
 
 
         Frame lastValidateFrame_ = 0; //Confirm frame

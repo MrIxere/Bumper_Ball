@@ -5,6 +5,7 @@
 #include <imgui.h>
 
 #include "utils/conversion.h"
+#include <SFML/Graphics.hpp>
 
 namespace game
 {
@@ -95,7 +96,6 @@ namespace game
             core::LogError("Could not load font");
         }
         textRenderer_.setFont(font_);
-        background_.Init();
     }
 
     void ClientGameManager::Update(sf::Time dt)
@@ -111,6 +111,19 @@ namespace game
                     static_cast<core::EntityMask>(core::ComponentType::SPRITE)))
                 {
                     const auto& player = rollbackManager_.GetPlayerCharacterManager().GetComponent(entity);
+
+                    if (player.invincibilityTime > 0.0f)
+                    {
+                        auto leftV = std::fmod(player.invincibilityTime, invincibilityFlashPeriod);
+                        auto rightV = invincibilityFlashPeriod / 2.0f;
+                    }
+                    if (player.invincibilityTime > 0.0f &&
+                        std::fmod(player.invincibilityTime, invincibilityFlashPeriod)
+                        > invincibilityFlashPeriod / 2.0f)
+                    {
+                        spriteManager_.SetColor(entity, sf::Color::Black);
+                    }
+                    else
                     {
                         spriteManager_.SetColor(entity, playerColors[player.playerNumber]);
                     }
@@ -154,7 +167,13 @@ namespace game
         //UpdateCameraView();
         target.setView(originalView_);
 
-        background_.Draw(target);
+        sf::CircleShape ring;
+        ring.setRadius(ringRadius);
+        ring.setOrigin(ring.getRadius(), ring.getRadius());
+        ring.setPosition(ringPosition.x + windowSize_.x/2, - ringPosition.y + windowSize_.y / 2);
+        //ring.setPosition(window.getSize().x/2, window.getSize().y/2);
+        ring.setFillColor(sf::Color::White);
+        target.draw(ring);
         spriteManager_.Draw(target);
 
         // Draw texts on screen

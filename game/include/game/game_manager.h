@@ -8,7 +8,6 @@
 
 #include "game_globals.h"
 #include "rollback_manager.h"
-#include "background.h"
 #include "engine/entity.h"
 #include "graphics/graphics.h"
 #include "graphics/sprite.h"
@@ -89,7 +88,6 @@ namespace game
         sf::View cameraView_;
         PlayerNumber clientPlayer_ = INVALID_PLAYER;
         core::SpriteManager spriteManager_;
-        Background background_;
         float fixedTimer_ = 0.0f;
         unsigned long long startingTime_ = 0;
         std::uint32_t state_ = 0;

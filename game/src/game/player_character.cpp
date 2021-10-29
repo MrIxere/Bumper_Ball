@@ -7,7 +7,8 @@ namespace game
         ComponentManager(entityManager),
         physicsManager_(physicsManager),
         gameManager_(gameManager)
-    {}
+    {
+    }
 
     void PlayerCharacterManager::FixedUpdate(sf::Time dt)
     {
@@ -35,10 +36,15 @@ namespace game
             const auto acceleration = ((down ? -0.05f : 0.0f) + (up ? 0.05f : 0.0f)) * dir;
             const auto acceleration_r = ((right ? 0.0f : -2.5f) + (left ? 0.0f : 2.5f)) * dir_r;
 
-
             playerBody.velocity += acceleration + acceleration_r * dt.asSeconds();
 
             physicsManager_.SetBody(playerEntity, playerBody);
+
+            if (playerCharacter.invincibilityTime > 0.0f)
+            {
+                playerCharacter.invincibilityTime -= dt.asSeconds();
+                SetComponent(playerEntity, playerCharacter);
+            }
 
         }
     }

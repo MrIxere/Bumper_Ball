@@ -8,11 +8,12 @@ namespace game
 {
 
     RollbackManager::RollbackManager(GameManager& gameManager, core::EntityManager& entityManager) :
-        gameManager_(gameManager), entityManager_(entityManager),
-        currentTransformManager_(entityManager),
-        currentPhysicsManager_(entityManager), currentPlayerManager_(entityManager, currentPhysicsManager_, gameManager_),
-        lastValidatePhysicsManager_(entityManager),
-        lastValidatePlayerManager_(entityManager, lastValidatePhysicsManager_, gameManager_)
+	    gameManager_(gameManager), entityManager_(entityManager),
+	    currentTransformManager_(entityManager),
+	    currentPhysicsManager_(entityManager),
+	    currentPlayerManager_(entityManager, currentPhysicsManager_, gameManager_),
+	    lastValidatePhysicsManager_(entityManager),
+	    lastValidatePlayerManager_(entityManager, lastValidatePhysicsManager_, gameManager_)
     {
     }
 
@@ -239,8 +240,8 @@ namespace game
         Body playerBody;
         playerBody.position = position;
         playerBody.rotation = rotation;
-        Circle playerBox;
-        playerBox.extends = core::Vec2f::one() * 0.5f;
+        Circle PlayerCircle;
+        PlayerCircle.extends = core::Vec2f::one() * 0.5f;
 
         PlayerCharacter playerCharacter;
         playerCharacter.playerNumber = playerNumber;
@@ -251,7 +252,7 @@ namespace game
         currentPhysicsManager_.AddBody(entity);
         currentPhysicsManager_.SetBody(entity, playerBody);
         currentPhysicsManager_.AddCircle(entity);
-        currentPhysicsManager_.SetCircle(entity, playerBox);
+        currentPhysicsManager_.SetCircle(entity, PlayerCircle);
 
         lastValidatePlayerManager_.AddComponent(entity);
         lastValidatePlayerManager_.SetComponent(entity, playerCharacter);
@@ -259,7 +260,7 @@ namespace game
         lastValidatePhysicsManager_.AddBody(entity);
         lastValidatePhysicsManager_.SetBody(entity, playerBody);
         lastValidatePhysicsManager_.AddCircle(entity);
-        lastValidatePhysicsManager_.SetCircle(entity, playerBox);
+        lastValidatePhysicsManager_.SetCircle(entity, PlayerCircle);
 
         currentTransformManager_.AddComponent(entity);
         currentTransformManager_.SetPosition(entity, position);
@@ -271,5 +272,35 @@ namespace game
         assert(currentFrame_ - frame < inputs_[playerNumber].size() &&
             "Trying to get input too far in the past");
         return inputs_[playerNumber][currentFrame_ - frame];
+    }
+
+    void RollbackManager::ManageOutOfBounds(core::Entity entity, core::Vec2f position)
+    {
+        for (core::Entity entity = 0; entity < entityManager_.GetEntitiesSize(); entity++)
+        {
+            if (entityManager_.HasComponent(entity, static_cast<core::EntityMask>(ComponentType::PLAYER_CHARACTER)))
+            {
+                auto playerCharacter = currentPlayerManager_.GetComponent(entity);
+                if (playerCharacter.invincibilityTime <= 0.0f)
+                {
+                    core::LogDebug(fmt::format("Player {} is outside the ring", playerCharacter.playerNumber));
+                    playerCharacter.health--;
+                    playerCharacter.invincibilityTime = playerInvincibilityPeriod;
+                }
+                currentPlayerManager_.SetComponent(entity, playerCharacter);
+            }
+        }
+
+        /*if ()
+        {
+            auto playerCharacter = currentPlayerManager_.GetComponent(playerEntity);
+            if (playerCharacter.invincibilityTime <= 0.0f)
+            {
+                core::LogDebug(fmt::format("Player {} is outside the ring", playerCharacter.playerNumber));
+                playerCharacter.health--;
+                playerCharacter.invincibilityTime = playerInvincibilityPeriod;
+            }
+            currentPlayerManager_.SetComponent(playerEntity, playerCharacter);
+        }*/
     }
 }
