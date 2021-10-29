@@ -206,7 +206,7 @@ namespace game
                 if (ms < startingTime_)
                 {
                     const std::string countDownText = fmt::format("Starts in {}", ((startingTime_ - ms) / 1000 + 1));
-                    textRenderer_.setFillColor(sf::Color::White);
+                    textRenderer_.setFillColor(sf::Color::Black);
                     textRenderer_.setString(countDownText);
                     textRenderer_.setCharacterSize(32);
                     const auto textBounds = textRenderer_.getLocalBounds();
@@ -227,6 +227,7 @@ namespace game
                 {
                     continue;
                 }
+                health += fmt::format("P{} health: {} ", playerNumber + 1, playerManager.GetComponent(playerEntity).health);
             }
             textRenderer_.setFillColor(sf::Color::White);
             textRenderer_.setString(health);
@@ -374,7 +375,7 @@ namespace game
         state_ = state_ | FINISHED;
     }
 
-   /* void ClientGameManager::UpdateCameraView()
+    void ClientGameManager::UpdateCameraView()
     {
         if(!(state_ | STARTED))
         {
@@ -385,7 +386,7 @@ namespace game
         cameraView_ = originalView_;
         const sf::Vector2f extends{ cameraView_.getSize() / 2.0f / PixelPerUnit };
         float currentZoom = 1.0f;
-        constexpr float margin = 1.0f;
+        constexpr float margin = 1.0f;/*
         for (PlayerNumber playerNumber = 0; playerNumber < maxPlayerNmb; playerNumber++)
         {
             const auto playerEntity = GetEntityFromPlayerNumber(playerNumber);
@@ -413,8 +414,8 @@ namespace game
                     }
                 }
             }
-        }
+        }*/
         cameraView_.zoom(currentZoom);
 
-    }*/
+    }
 }

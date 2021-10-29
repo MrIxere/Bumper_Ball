@@ -239,7 +239,7 @@ namespace game
         Body playerBody;
         playerBody.position = position;
         playerBody.rotation = rotation;
-        Box playerBox;
+        Circle playerBox;
         playerBox.extends = core::Vec2f::one() * 0.5f;
 
         PlayerCharacter playerCharacter;
@@ -250,16 +250,16 @@ namespace game
 
         currentPhysicsManager_.AddBody(entity);
         currentPhysicsManager_.SetBody(entity, playerBody);
-        currentPhysicsManager_.AddBox(entity);
-        currentPhysicsManager_.SetBox(entity, playerBox);
+        currentPhysicsManager_.AddCircle(entity);
+        currentPhysicsManager_.SetCircle(entity, playerBox);
 
         lastValidatePlayerManager_.AddComponent(entity);
         lastValidatePlayerManager_.SetComponent(entity, playerCharacter);
 
         lastValidatePhysicsManager_.AddBody(entity);
         lastValidatePhysicsManager_.SetBody(entity, playerBody);
-        lastValidatePhysicsManager_.AddBox(entity);
-        lastValidatePhysicsManager_.SetBox(entity, playerBox);
+        lastValidatePhysicsManager_.AddCircle(entity);
+        lastValidatePhysicsManager_.SetCircle(entity, playerBox);
 
         currentTransformManager_.AddComponent(entity);
         currentTransformManager_.SetPosition(entity, position);

@@ -25,7 +25,7 @@ namespace game
         BodyType bodyType = BodyType::DYNAMIC;
     };
 
-    struct Box
+    struct Circle
     {
         core::Vec2f extends = core::Vec2f::one();
         bool isTrigger = false;
@@ -43,7 +43,7 @@ namespace game
     public:
         using ComponentManager::ComponentManager;
     };
-    class BoxManager : public core::ComponentManager<Box, static_cast<core::EntityMask>(core::ComponentType::CIRCLE_COLLIDER2D)>
+    class BoxManager : public core::ComponentManager<Circle, static_cast<core::EntityMask>(core::ComponentType::CIRCLE_COLLIDER2D)>
     {
     public:
         using ComponentManager::ComponentManager;
@@ -58,9 +58,9 @@ namespace game
         void SetBody(core::Entity entity, const Body& body);
         void AddBody(core::Entity entity);
 
-        void AddBox(core::Entity entity);
-        void SetBox(core::Entity entity, const Box& box);
-        [[nodiscard]] const Box& GetBox(core::Entity entity) const;
+        void AddCircle(core::Entity entity);
+        void SetCircle(core::Entity entity, const Circle& circle);
+        [[nodiscard]] const Circle& GetCircle(core::Entity entity) const;
 
         void RegisterTriggerListener(OnTriggerInterface& collisionInterface);
         void CopyAllComponents(const PhysicsManager& physicsManager);

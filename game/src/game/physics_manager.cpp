@@ -9,7 +9,7 @@ namespace game
 
     }
 
-    bool Box2Box(float r1x, float r1y, float r1w, float r1h, float r2x, float r2y, float r2w, float r2h)
+    bool Circle2Circle(float r1x, float r1y, float r1w, float r1h, float r2x, float r2y, float r2w, float r2h)
     {
         return r1x + r1w >= r2x &&    // r1 right edge past r2 left
             r1x <= r2x + r2w &&    // r1 left edge past r2 right
@@ -44,20 +44,20 @@ namespace game
                     entityManager_.HasComponent(entity, static_cast<core::EntityMask>(ComponentType::DESTROYED)))
                     continue;
                 const Body& body1 = bodyManager_.GetComponent(entity);
-                const Box& box1 = boxManager_.GetComponent(entity);
+                const Circle& circle1 = boxManager_.GetComponent(entity);
 
                 const Body& body2 = bodyManager_.GetComponent(otherEntity);
-                const Box& box2 = boxManager_.GetComponent(otherEntity);
+                const Circle& circle2 = boxManager_.GetComponent(otherEntity);
 
-                if (Box2Box(
-                    body1.position.x - box1.extends.x,
-                    body1.position.y - box1.extends.y,
-                    box1.extends.x * 2.0f,
-                    box1.extends.y * 2.0f,
-                    body2.position.x - box2.extends.x,
-                    body2.position.y - box2.extends.y,
-                    box2.extends.x * 2.0f,
-                    box2.extends.y * 2.0f))
+                if (Circle2Circle(
+                    body1.position.x - circle1.extends.x,
+                    body1.position.y - circle1.extends.y,
+                    circle1.extends.x * 2.0f,
+                    circle1.extends.y * 2.0f,
+                    body2.position.x - circle2.extends.x,
+                    body2.position.y - circle2.extends.y,
+                    circle2.extends.x * 2.0f,
+                    circle2.extends.y * 2.0f))
                 {
                     onTriggerAction_.Execute(entity, otherEntity);
                 }
@@ -81,17 +81,17 @@ namespace game
         bodyManager_.AddComponent(entity);
     }
 
-    void PhysicsManager::AddBox(core::Entity entity)
+    void PhysicsManager::AddCircle(core::Entity entity)
     {
         boxManager_.AddComponent(entity);
     }
 
-    void PhysicsManager::SetBox(core::Entity entity, const Box& box)
+    void PhysicsManager::SetCircle(core::Entity entity, const Circle& circle)
     {
-        boxManager_.SetComponent(entity, box);
+        boxManager_.SetComponent(entity, circle);
     }
 
-    const Box& PhysicsManager::GetBox(core::Entity entity) const
+    const Circle& PhysicsManager::GetCircle(core::Entity entity) const
     {
         return boxManager_.GetComponent(entity);
     }
