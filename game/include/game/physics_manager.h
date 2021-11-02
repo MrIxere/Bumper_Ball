@@ -21,8 +21,10 @@ namespace game
         core::Vec2f position = core::Vec2f::zero();
         core::Vec2f velocity = core::Vec2f::zero();
         core::degree_t angularVelocity = core::degree_t(0.0f);
-        core::degree_t rotation = core::degree_t(0.0f);
         BodyType bodyType = BodyType::DYNAMIC;
+    	static float CalculateDistance(Body body1, Body body2);
+        static constexpr float Rebound = 0.99f;
+        static constexpr float radius = 0.17f;
     };
 
     struct Circle
@@ -43,7 +45,7 @@ namespace game
     public:
         using ComponentManager::ComponentManager;
     };
-    class BoxManager : public core::ComponentManager<Circle, static_cast<core::EntityMask>(core::ComponentType::CIRCLE_COLLIDER2D)>
+    class CircleManager : public core::ComponentManager<Circle, static_cast<core::EntityMask>(core::ComponentType::CIRCLE_COLLIDER2D)>
     {
     public:
         using ComponentManager::ComponentManager;
@@ -67,8 +69,12 @@ namespace game
     private:
         core::EntityManager& entityManager_;
         BodyManager bodyManager_;
-        BoxManager boxManager_;
+        CircleManager circleManager_;
         core::Action<core::Entity, core::Entity> onTriggerAction_;
+        bool BodyContact(Body body1, Body body2);
+        void ResolveBodyContact(Body& body1, Body& body2);
+        core::Vec2f ContactPoint(const Body& rb1, const Body& rb2) const;
+        core::Vec2f RelocatedCenter(const Body& body, const core::Vec2f& v);
     };
 
 }

@@ -74,7 +74,6 @@ namespace game
                 continue;
             const auto& body = currentPhysicsManager_.GetBody(entity);
             currentTransformManager_.SetPosition(entity, body.position);
-            currentTransformManager_.SetRotation(entity, body.rotation);
         }
     }
     void RollbackManager::SetPlayerInput(PlayerNumber playerNumber, PlayerInput playerInput, std::uint32_t inputFrame)
@@ -220,13 +219,7 @@ namespace game
         {
             state += velocityPtr[i];
         }
-        //Adding rotation
-        const auto angle = playerBody.rotation.value();
-        const auto* anglePtr = reinterpret_cast<const PhysicsState*>(&angle);
-        for (size_t i = 0; i < sizeof(float) / sizeof(PhysicsState); i++)
-        {
-            state += anglePtr[i];
-        }
+       
         //Adding angular Velocity
         const auto angularVelocity = playerBody.angularVelocity.value();
         const auto* angularVelPtr = reinterpret_cast<const PhysicsState*>(&angularVelocity);
@@ -241,7 +234,6 @@ namespace game
     {
         Body playerBody;
         playerBody.position = position;
-        playerBody.rotation = rotation;
         Circle PlayerCircle;
         PlayerCircle.extends = core::Vec2f::one() * 0.5f;
 
