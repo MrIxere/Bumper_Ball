@@ -92,9 +92,9 @@ namespace game
     {
         //load textures
         
-        if (!shipTexture_.loadFromFile("data/sprites/ship.png"))
+        if (!playerTexture_.loadFromFile("data/sprites/player.png"))
         {
-            core::LogError("Could not load ship sprite");
+            core::LogError("Could not load player sprite");
         }
         //load fonts
         if (!font_.loadFromFile("data/fonts/8-bit-hud.ttf"))
@@ -275,8 +275,8 @@ namespace game
         GameManager::SpawnPlayer(playerNumber, position, rotation);
         const auto entity = GetEntityFromPlayerNumber(playerNumber);
         spriteManager_.AddComponent(entity);
-        spriteManager_.SetTexture(entity, shipTexture_);
-        spriteManager_.SetOrigin(entity, sf::Vector2f(shipTexture_.getSize())/2.0f);
+        spriteManager_.SetTexture(entity, playerTexture_);
+        spriteManager_.SetOrigin(entity, sf::Vector2f(playerTexture_.getSize())/2.0f);
         auto sprite = spriteManager_.GetComponent(entity);
         sprite.setColor(playerColors[playerNumber]);
         spriteManager_.SetComponent(entity, sprite);
@@ -374,20 +374,12 @@ namespace game
     {
         if (newValidateFrame < rollbackManager_.GetLastValidateFrame())
         {
-            //core::LogDebug(fmt::format("[Warning] New validate frame is too old"));
             return;
         }
         for (PlayerNumber playerNumber = 0; playerNumber < maxPlayerNmb; playerNumber++)
         {
             if (rollbackManager_.GetLastReceivedFrame(playerNumber) < newValidateFrame)
             {
-                /*
-                core::LogDebug(fmt::format("[Warning] Trying to validate frame {} while playerNumber {} is at input frame {}, client player {}",
-                    newValidateFrame,
-                    playerNumber + 1,
-                    rollbackManager_.GetLastReceivedFrame(playerNumber),
-                    GetPlayerNumber()+1));
-                */
                 return;
             }
         }
@@ -411,35 +403,7 @@ namespace game
         cameraView_ = originalView_;
         const sf::Vector2f extends{ cameraView_.getSize() / 2.0f / PixelPerUnit };
         float currentZoom = 1.0f;
-        constexpr float margin = 1.0f;/*
-        for (PlayerNumber playerNumber = 0; playerNumber < maxPlayerNmb; playerNumber++)
-        {
-            const auto playerEntity = GetEntityFromPlayerNumber(playerNumber);
-            if(playerEntity == core::EntityManager::INVALID_ENTITY)
-            {
-                continue;
-            }
-            if(entityManager_.HasComponent(playerEntity, static_cast<core::EntityMask>(core::ComponentType::POSITION)))
-            {
-                const auto position = transformManager_.GetPosition(playerEntity);
-                if((std::abs(position.x) + margin) > extends.x)
-                {
-                    const auto ratio = (std::abs(position.x ) + margin) / extends.x;
-                    if(ratio > currentZoom)
-                    {
-                        currentZoom = ratio;
-                    }
-                }
-                if ((std::abs(position.y) + margin) > extends.y)
-                {
-                    const auto ratio = (std::abs(position.y) + margin) / extends.y;
-                    if (ratio > currentZoom)
-                    {
-                        currentZoom = ratio;
-                    }
-                }
-            }
-        }*/
+        constexpr float margin = 1.0f;
         cameraView_.zoom(currentZoom);
 
     }

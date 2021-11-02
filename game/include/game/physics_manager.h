@@ -23,8 +23,8 @@ namespace game
         core::degree_t angularVelocity = core::degree_t(0.0f);
         BodyType bodyType = BodyType::DYNAMIC;
     	static float CalculateDistance(Body body1, Body body2);
-        static constexpr float Rebound = 0.99f;
-        static constexpr float radius = 0.17f;
+        static constexpr float Rebound = 0.85f;
+        static constexpr float radius = 0.30f;
     };
 
     struct Circle

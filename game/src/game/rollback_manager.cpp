@@ -290,16 +290,5 @@ namespace game
             }
         }
 
-        /*if ()
-        {
-            auto playerCharacter = currentPlayerManager_.GetComponent(playerEntity);
-            if (playerCharacter.invincibilityTime <= 0.0f)
-            {
-                core::LogDebug(fmt::format("Player {} is outside the ring", playerCharacter.playerNumber));
-                playerCharacter.health--;
-                playerCharacter.invincibilityTime = playerInvincibilityPeriod;
-            }
-            currentPlayerManager_.SetComponent(playerEntity, playerCharacter);
-        }*/
     }
 }
