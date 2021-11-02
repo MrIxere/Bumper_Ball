@@ -31,11 +31,6 @@ namespace core
                     const auto scale = transformManager_.GetScale(entity);
                     components_[entity].setScale(scale.x *4, scale.y *4);
                 }
-                if (entityManager_.HasComponent(entity, static_cast<Component>(ComponentType::ROTATION)))
-                {
-                    const auto rotation = transformManager_.GetRotation(entity);
-                    components_[entity].setRotation(rotation.value());
-                }
                 window.draw(components_[entity]);
             }
         }

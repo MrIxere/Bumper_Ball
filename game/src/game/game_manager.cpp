@@ -17,7 +17,7 @@ namespace game
         playerEntityMap_.fill(core::EntityManager::INVALID_ENTITY);
     }
 
-    void GameManager::SpawnPlayer(PlayerNumber playerNumber, core::Vec2f position, core::degree_t rotation)
+    void GameManager::SpawnPlayer(PlayerNumber playerNumber, core::Vec2f position)
     {
         if (GetEntityFromPlayerNumber(playerNumber) != core::EntityManager::INVALID_ENTITY)
             return;
@@ -27,8 +27,7 @@ namespace game
 
         transformManager_.AddComponent(entity);
         transformManager_.SetPosition(entity, position);
-        transformManager_.SetRotation(entity, rotation);
-        rollbackManager_.SpawnPlayer(playerNumber, entity, position, core::degree_t(rotation));
+        rollbackManager_.SpawnPlayer(playerNumber, entity, position);
     }
 
     core::Entity GameManager::GetEntityFromPlayerNumber(PlayerNumber playerNumber) const
@@ -139,7 +138,6 @@ namespace game
                 {
                     transformManager_.SetPosition(entity, rollbackManager_.GetTransformManager().GetPosition(entity));
                     transformManager_.SetScale(entity, rollbackManager_.GetTransformManager().GetScale(entity));
-                    transformManager_.SetRotation(entity, rollbackManager_.GetTransformManager().GetRotation(entity));
                 }
             }
         }
@@ -177,7 +175,6 @@ namespace game
         ring.setRadius(ringRadius);
         ring.setOrigin(ring.getRadius(), ring.getRadius());
         ring.setPosition(ringPosition.x + windowSize_.x/2, - ringPosition.y + windowSize_.y / 2);
-        //ring.setPosition(window.getSize().x/2, window.getSize().y/2);
         ring.setFillColor(sf::Color::White);
         target.draw(ring);
         spriteManager_.Draw(target);
@@ -268,11 +265,11 @@ namespace game
         clientPlayer_ = clientPlayer;
     }
 
-    void ClientGameManager::SpawnPlayer(PlayerNumber playerNumber, core::Vec2f position, core::degree_t rotation)
+    void ClientGameManager::SpawnPlayer(PlayerNumber playerNumber, core::Vec2f position)
     {
         core::LogDebug(fmt::format("Spawn player: {}", playerNumber));
 
-        GameManager::SpawnPlayer(playerNumber, position, rotation);
+        GameManager::SpawnPlayer(playerNumber, position);
         const auto entity = GetEntityFromPlayerNumber(playerNumber);
         spriteManager_.AddComponent(entity);
         spriteManager_.SetTexture(entity, playerTexture_);

@@ -74,18 +74,6 @@ float Vec2f::GetSqrMagnitude() const
     return x * x + y * y;
 }
 
-Vec2f Vec2f::Rotate(degree_t rotation) const
-{
-
-    const auto cs = Cos(rotation);
-    const auto sn = Sin(rotation);
-
-    Vec2f v;
-    v.x = x * cs - y * sn;
-    v.y = x * sn + y * cs;
-    return v;
-}
-
 float Vec2f::Dot(Vec2f a, Vec2f b)
 {
     return a.x * b.x + a.y * b.y;

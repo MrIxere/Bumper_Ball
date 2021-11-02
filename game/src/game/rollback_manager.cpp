@@ -230,7 +230,7 @@ namespace game
         return state;
     }
 
-    void RollbackManager::SpawnPlayer(PlayerNumber playerNumber, core::Entity entity, core::Vec2f position, core::degree_t rotation)
+    void RollbackManager::SpawnPlayer(PlayerNumber playerNumber, core::Entity entity, core::Vec2f position)
     {
         Body playerBody;
         playerBody.position = position;
@@ -258,7 +258,6 @@ namespace game
 
         currentTransformManager_.AddComponent(entity);
         currentTransformManager_.SetPosition(entity, position);
-        currentTransformManager_.SetRotation(entity, rotation);
     }
 
     PlayerInput RollbackManager::GetInputAtFrame(PlayerNumber playerNumber, Frame frame)

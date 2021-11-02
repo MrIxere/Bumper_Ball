@@ -23,11 +23,6 @@ public:
     void AddComponent(Entity entity) override;
 };
 
-class RotationManager : public ComponentManager<degree_t, static_cast<std::uint32_t>(ComponentType::ROTATION)>
-{
-public:
-    using ComponentManager::ComponentManager;
-};
 
 class TransformManager
 {
@@ -42,9 +37,6 @@ public:
     [[nodiscard]] const std::vector<Vec2f>& GetAllScales() const;
     void SetScale(Entity entity, Vec2f scale);
 
-    [[nodiscard]] degree_t GetRotation(Entity entity) const;
-    [[nodiscard]] const std::vector<degree_t>& GetAllRotations() const;
-    void SetRotation(Entity entity, degree_t rotation);
 
     void AddComponent(Entity entity);
     void RemoveComponent(Entity entity);
@@ -52,7 +44,6 @@ public:
 private:
     PositionManager positionManager_;
     ScaleManager scaleManager_;
-    RotationManager rotationManager_;
 };
 
 }

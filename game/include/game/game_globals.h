@@ -43,14 +43,6 @@ namespace game
             core::Vec2f(-0.5,0),
     };
 
-    const std::array<core::degree_t, std::max(4u, maxPlayerNmb)> spawnRotations
-    {
-        core::degree_t(0.0f),
-        core::degree_t(180.0f),
-        core::degree_t(-90.0f),
-        core::degree_t(90.0f)
-    };
-
     enum class ComponentType : core::EntityMask
     {
         PLAYER_CHARACTER = static_cast<core::EntityMask>(core::ComponentType::OTHER_TYPE),
